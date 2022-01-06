@@ -17,7 +17,17 @@ public static class XamlFileParser
             return null;
         }
 
-        ResourceDictionary rd = (ResourceDictionary)XamlReader.Parse(File.ReadAllText(path));
+        ResourceDictionary rd = new();
+
+        try
+        {
+            rd = (ResourceDictionary)XamlReader.Parse(File.ReadAllText(path));
+        }
+        catch (Exception ex)
+        {
+            AdonisUI.Controls.MessageBox.Show($"An error occured.{Environment.NewLine}{ex}", "XAML Localization Helper", icon: AdonisUI.Controls.MessageBoxImage.Error);
+            return strings;
+        }
 
         foreach (string key in rd.Keys)
             keys.Add(key);
