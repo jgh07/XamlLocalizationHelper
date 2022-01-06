@@ -1,0 +1,86 @@
+﻿<uic:AdonisWindow x:Class="XamlLocalizationHelper.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:XamlLocalizationHelper"
+        xmlns:ui="clr-namespace:AdonisUI;assembly=AdonisUI"
+        xmlns:uic="clr-namespace:AdonisUI.Controls;assembly=AdonisUI"
+        xmlns:uie="clr-namespace:AdonisUI.Extensions;assembly=AdonisUI"
+        mc:Ignorable="d"
+        Title="XAML Localization Helper" SizeToContent="Height" Width="800" IconVisibility="Collapsed" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen"
+        Background="{StaticResource {x:Static ui:Brushes.Layer0BackgroundBrush}}" Foreground="{StaticResource {x:Static ui:Brushes.ForegroundBrush}}">
+    
+    <Window.Icon>
+        <DrawingImage>
+            <DrawingImage.Drawing>
+                <DrawingGroup>
+                    <GeometryDrawing Geometry="M12.89,3L14.85,3.4L11.11,21L9.15,20.6L12.89,3M19.59,12L16,8.41V5.58L22.42,12L16,18.41V15.58L19.59,12M1.58,12L8,5.58V8.41L4.41,12L8,15.58V18.41L1.58,12Z">
+                        <GeometryDrawing.Pen>
+                            <Pen Thickness="3" Brush="{StaticResource {x:Static ui:Brushes.ForegroundBrush}}"/>
+                        </GeometryDrawing.Pen>
+                    </GeometryDrawing>
+                </DrawingGroup>
+            </DrawingImage.Drawing>
+        </DrawingImage>
+    </Window.Icon>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" BorderThickness="0,2,0,2" BorderBrush="{StaticResource {x:Static ui:Brushes.Layer1BorderBrush}}" Padding="0,5">
+            <StackPanel Orientation="Horizontal">
+                <Button x:Name="LoadXamlFileButton" Content="Load file..." Margin="5,0" Click="LoadXamlFileButton_Click"/>
+                <TextBlock x:Name="SelectedFileText" Margin="5,0" Text="No file selected." VerticalAlignment="Center"/>
+                <TextBox x:Name="TargetLanguageTextBox" TextChanged="TargetLanguageTextBox_TextChanged" Margin="5,0" VerticalAlignment="Center" Width="250" HorizontalAlignment="Left" uie:WatermarkExtension.Watermark="Target language (2- or 4-character code)"/>
+
+                <Button x:Name="GetPrevKeyButton" Content="&lt;" Margin="5,0,0,0" ToolTip="Get previous string" Click="GetPrevKeyButton_Click"/>
+                <Button x:Name="GetNextKeyButton" Content="&gt;" Margin="0,0,5,0" ToolTip="Get next string" Click="GetNextKeyButton_Click"/>
+
+                <Button x:Name="SaveFileButton" Margin="5,0" Content="Save file" HorizontalAlignment="Right" Click="SaveFileButton_Click"/>
+            </StackPanel>
+        </Border>
+        
+        <Grid Grid.Row="1" Background="{StaticResource {x:Static ui:Brushes.Layer1BackgroundBrush}}" uie:LayerExtension.IncreaseLayer="True">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="8"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Margin="5">
+                    <Run Text="Source language: " FontFamily="Segoe UI Semibold" FontSize="14"/>
+                    <Run x:Name="SourceLanguageKeyText" Text=""/>
+                    <LineBreak/>
+                    <Run Text="String name:" FontFamily="Segoe UI Semibold" FontSize="14"/>
+                    <Run x:Name="CurrentKeyText" Text=""/>
+                </TextBlock>
+                <TextBox x:Name="SourceString" Margin="5" Grid.Row="1" FontSize="36" TextWrapping="Wrap" IsReadOnly="True" IsReadOnlyCaretVisible="True" uie:WatermarkExtension.Watermark="No file selected"/>
+            </Grid>
+
+            <Rectangle Grid.Row="1" Fill="{StaticResource {x:Static ui:Brushes.Layer1BorderBrush}}"/>
+
+            <Grid Grid.Row="2" uie:LayerExtension.IncreaseLayer="True">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Margin="5">
+                    <Run Text="Target language: " FontFamily="Segoe UI Semibold" FontSize="14"/>
+                    <Run x:Name="TargetLanguageKeyText" Text=""/>
+                </TextBlock>
+                <TextBox x:Name="LocalizedStringTextBox" Margin="5" Grid.Row="1" FontSize="36" TextWrapping="Wrap" uie:WatermarkExtension.Watermark="Localized string"/>
+            </Grid>
+        </Grid>
+    </Grid>
+</uic:AdonisWindow>
