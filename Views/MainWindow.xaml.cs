@@ -9,6 +9,7 @@ public partial class MainWindow : AdonisWindow
     string sourceLanguageCode;
     string targetLanguageCode;
     string currentFilePath;
+    bool overrideNextKey = false;
 
     private List<XamlParser.String> SourceStrings = new();
     private List<XamlParser.String> LocalizedStrings = new();
@@ -26,7 +27,22 @@ public partial class MainWindow : AdonisWindow
 
     private void GetPrevKeyButton_Click(object sender, RoutedEventArgs e)
     {
+        if (index == 0)
+        {
+            AdonisUI.Controls.MessageBox.Show("Reached first string.", "XAML Localization Helper", icon: AdonisUI.Controls.MessageBoxImage.Information);
+            return;
+        }
 
+        LocalizedStrings.Add(new(SourceStrings[index].Name, LocalizedStringTextBox.Text));
+
+        index--;
+        LocalizedStringTextBox.Clear();
+        SourceString.Text = SourceStrings[index].Value;
+        CurrentKeyText.Text = SourceStrings[index].Name;
+
+        LocalizedStringTextBox.Text = LocalizedStrings[index].Value;
+
+        overrideNextKey = true;
     }
 
     private void GetNextKeyButton_Click(object sender, RoutedEventArgs e)
@@ -37,7 +53,13 @@ public partial class MainWindow : AdonisWindow
             return;
         }
 
-        LocalizedStrings.Add(new(SourceStrings[index].Name, LocalizedStringTextBox.Text));
+        if (overrideNextKey)
+        {
+            LocalizedStrings[index] = new(SourceStrings[index].Name, LocalizedStringTextBox.Text);
+            overrideNextKey = false;
+        }
+        else
+            LocalizedStrings.Add(new(SourceStrings[index].Name, LocalizedStringTextBox.Text));
 
         index++;
         if (index == SourceStrings.Count)
@@ -50,6 +72,8 @@ public partial class MainWindow : AdonisWindow
         SourceString.Text = SourceStrings[index].Value;
         CurrentKeyText.Text = SourceStrings[index].Name;
     }
+
+    public void LoadFile() => LoadXamlFileButton_Click(this, new());
 
     private void LoadXamlFileButton_Click(object sender, RoutedEventArgs e)
     {
@@ -77,6 +101,8 @@ public partial class MainWindow : AdonisWindow
         }
     }
 
+    public void SaveFile() => SaveFileButton_Click(this, new());
+
     private void SaveFileButton_Click(object sender, RoutedEventArgs e)
     {
         if (LocalizedStrings.Count == 0)
@@ -98,5 +124,23 @@ public partial class MainWindow : AdonisWindow
 
         XamlFileParser.SaveAsXaml(LocalizedStrings, endFilePath);
         AdonisUI.Controls.MessageBox.Show("Successfully saved to disk.", "XAML Localization Helper", icon: AdonisUI.Controls.MessageBoxImage.Information);
+    }
+
+    private void AdonisWindow_PreviewKeyDown(object sender, KeyEventArgs e)
+    {
+        if (!e.IsDown)
+            return;
+
+        if (e.Key == Key.Right)
+        {
+            GetNextKeyButton_Click(this, new());
+            return;
+        }
+
+        if (e.Key == Key.Left)
+        {
+            GetPrevKeyButton_Click(this, new());
+            return;
+        }
     }
 }

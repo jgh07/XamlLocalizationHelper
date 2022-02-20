@@ -1,0 +1,54 @@
+﻿<uic:AdonisWindow x:Class="XamlLocalizationHelper.Views.CreateNewDictionaryView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:XamlLocalizationHelper"
+        xmlns:ui="clr-namespace:AdonisUI;assembly=AdonisUI"
+        xmlns:uic="clr-namespace:AdonisUI.Controls;assembly=AdonisUI"
+        xmlns:uie="clr-namespace:AdonisUI.Extensions;assembly=AdonisUI"
+        mc:Ignorable="d"
+        Title="Create New Dictionary" Height="450" Width="800" ShowInTaskbar="False" IconVisibility="Collapsed" WindowStartupLocation="CenterScreen"
+        Background="{DynamicResource {x:Static ui:Brushes.Layer0BackgroundBrush}}"
+        Foreground="{DynamicResource {x:Static ui:Brushes.ForegroundBrush}}">
+
+    <Window.DataContext>
+        <local:NewDictionaryViewModel/>
+    </Window.DataContext>
+
+    <Window.InputBindings>
+        <KeyBinding Command="{Binding AddStringCommand}" Gesture="Ctrl++"/>
+    </Window.InputBindings>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" BorderThickness="0,2,0,2" BorderBrush="{StaticResource {x:Static ui:Brushes.Layer1BorderBrush}}" Padding="0,5">
+            <StackPanel Orientation="Horizontal">
+                <TextBox Margin="5,0" VerticalAlignment="Center" Width="250" uie:WatermarkExtension.Watermark="Name"/>
+                <TextBox Margin="5,0" VerticalAlignment="Center" Width="100" uie:WatermarkExtension.Watermark="Language"/>
+                <Button Margin="5,0" VerticalAlignment="Center" Width="Auto" Content="+" Command="{Binding AddStringCommand}" ToolTip="Add string (Ctrl+Plus)"/>
+                <Button Margin="5,0" VerticalAlignment="Center" Content="Save to disk"/>
+            </StackPanel>
+        </Border>
+
+        <Grid Grid.Row="1" uie:LayerExtension.IncreaseLayer="True" uie:LayerExtension.Layer="1" Background="{DynamicResource {x:Static ui:Brushes.Layer1BackgroundBrush}}">
+            <DataGrid CanUserAddRows="True"
+                      CanUserDeleteRows="True"
+                      CanUserReorderColumns="True"
+                      CanUserResizeColumns="True"
+                      ItemsSource="{Binding Strings}"
+                      FontSize="16"
+                      AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Id" MinWidth="50" IsReadOnly="True" Binding="{Binding Id}"/>
+                    <DataGridTextColumn Header="Key" MinWidth="175" Binding="{Binding Key}"/>
+                    <DataGridTextColumn Header="Value" MinWidth="300" Binding="{Binding Value}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+    </Grid>
+</uic:AdonisWindow>

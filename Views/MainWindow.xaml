@@ -9,7 +9,18 @@
         xmlns:uie="clr-namespace:AdonisUI.Extensions;assembly=AdonisUI"
         mc:Ignorable="d"
         Title="XAML Localization Helper" SizeToContent="Height" Width="800" IconVisibility="Collapsed" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen"
-        Background="{StaticResource {x:Static ui:Brushes.Layer0BackgroundBrush}}" Foreground="{StaticResource {x:Static ui:Brushes.ForegroundBrush}}">
+        Background="{StaticResource {x:Static ui:Brushes.Layer0BackgroundBrush}}" Foreground="{StaticResource {x:Static ui:Brushes.ForegroundBrush}}" PreviewKeyDown="AdonisWindow_PreviewKeyDown">
+
+    <Window.DataContext>
+        <local:Commands/>
+    </Window.DataContext>
+
+    <Window.InputBindings>
+        <KeyBinding Command="{Binding CreateNewFileCommand}" Gesture="Ctrl+N"/>
+        <KeyBinding Command="{Binding OpenFileCommand}" Gesture="Ctrl+O"/>
+        <KeyBinding Command="{Binding SaveFileCommand}" Gesture="Ctrl+S"/>
+        <KeyBinding Command="{Binding CopySourceKeyText}" Gesture="Ctrl+Q"/>
+    </Window.InputBindings>
     
     <Window.Icon>
         <DrawingImage>
