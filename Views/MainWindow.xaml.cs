@@ -9,7 +9,6 @@ public partial class MainWindow : AdonisWindow
     string sourceLanguageCode;
     string targetLanguageCode;
     string currentFilePath;
-    bool overrideNextKey = false;
 
     private List<XamlParser.String> SourceStrings = new();
     private List<XamlParser.String> LocalizedStrings = new();
@@ -41,10 +40,8 @@ public partial class MainWindow : AdonisWindow
         CurrentKeyText.Text = SourceStrings[index].Name;
 
         LocalizedStringTextBox.Text = LocalizedStrings[index].Value;
-
-        overrideNextKey = true;
     }
-
+    
     private void GetNextKeyButton_Click(object sender, RoutedEventArgs e)
     {
         if (SourceStrings.Count == 0)
@@ -53,20 +50,22 @@ public partial class MainWindow : AdonisWindow
             return;
         }
 
-        if (overrideNextKey)
-        {
-            LocalizedStrings[index] = new(SourceStrings[index].Name, LocalizedStringTextBox.Text);
-            overrideNextKey = false;
-        }
-        else
-            LocalizedStrings.Add(new(SourceStrings[index].Name, LocalizedStringTextBox.Text));
-
-        index++;
         if (index == SourceStrings.Count)
         {
             AdonisUI.Controls.MessageBox.Show("No more strings to localize.", "XAML Localization Helper", icon: AdonisUI.Controls.MessageBoxImage.Information);
             return;
         }
+
+        index++;
+        if (LocalizedStrings.Count > index)
+        {
+            SourceString.Text = SourceStrings[index].Value;
+            CurrentKeyText.Text = SourceStrings[index].Name;
+            LocalizedStringTextBox.Text = LocalizedStrings[index].Value;
+            return;
+        }
+
+        LocalizedStrings.Add(new(SourceStrings[index - 1].Name, LocalizedStringTextBox.Text));
 
         LocalizedStringTextBox.Clear();
         SourceString.Text = SourceStrings[index].Value;
