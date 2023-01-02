@@ -2,7 +2,7 @@
 
 public static class XamlLocalizationHelperExtension
 {
-    private static Application app;
+    internal static Application app;
 
     public static void ExtMain(Application _app)
     {
