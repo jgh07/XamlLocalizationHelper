@@ -19,14 +19,14 @@ public static class XamlLocalizationHelperExtension
 
         MenuItem subItem = new()
         {
-            Header = "XAML Localization Helper"
+            Header = app.TryFindResource("StringXamlLocalizationHelperMenu")
         };
 
         subItem.Click += (_, _) => new MainWindow().ShowDialog();
 
-        if (menu.Items.ToArray().Any(subItem => (subItem as MenuItem)?.Header.ToString().EndsWith("Tools") ?? false))
+        if (menu.Items.ToArray().Any(subItem => (subItem as MenuItem)?.Header == app.TryFindResource("StringToolsMenu")))
         {
-            MenuItem parentItem = menu.Items.ToArray().First(subItem => (subItem as MenuItem)?.Header.ToString().EndsWith("Tools") ?? false) as MenuItem;
+            MenuItem parentItem = menu.Items.ToArray().First(subItem => (subItem as MenuItem)?.Header == app.TryFindResource("StringToolsMenu")) as MenuItem;
             parentItem!.Items.Add(subItem);
 
             return;
@@ -34,7 +34,7 @@ public static class XamlLocalizationHelperExtension
 
         MenuItem parentMenu = new()
         {
-            Header = "Tools"
+            Header = app.TryFindResource("StringToolsMenu")
         };
 
         parentMenu.Items.Add(subItem);
