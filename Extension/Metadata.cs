@@ -17,7 +17,7 @@ public static class Metadata
         icon.Measure(size);
         icon.Arrange(new(size));
 
-        RenderTargetBitmap bmp = new(16, 16, 96, 96, PixelFormats.Default);
+        RenderTargetBitmap bmp = new(128, 128, 600, 600, PixelFormats.Default);
         bmp.Render(icon);
 
         return bmp;
