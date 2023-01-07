@@ -8,7 +8,7 @@ public static class Metadata
     public static string Author { get; } = "Losch";
     public static Version Version { get; } = new(1, 0);
     public static ImageSource Icon { get; } = GetImage();
-    public static FlowDocument Document { get; } = (FlowDocument)Application.Current.TryFindResource("InfoDocument");
+    public static FlowDocument Document { get; } = GetDocument();/*(FlowDocument)Application.Current.TryFindResource("InfoDocument");*/
 
     private static ImageSource GetImage()
     {
@@ -22,6 +22,37 @@ public static class Metadata
         bmp.Render(icon);
 
         return bmp;
+    }
+
+    private static FlowDocument GetDocument()
+    {
+        FlowDocument doc = new()
+        {
+            FontFamily = new("Segoe UI")
+        };
+
+        Paragraph header = new(new Run("XAML Localization Helper"))
+        {
+            FontSize = 18,
+            TextDecorations = TextDecorations.Underline,
+            FontWeight = FontWeights.SemiBold
+        };
+
+        Paragraph text = new();
+        text.Inlines.Add("This utility helps you translating your XAML-based applications (WPF, WinUI,...) that use resource dictionaries for their translated strings. It is accessible under the ");
+
+        Run highlight = new("Tools")
+        {
+            FontWeight = FontWeights.SemiBold
+        };
+        text.Inlines.Add(highlight);
+
+        text.Inlines.Add(" menu.");
+
+        doc.Blocks.Add(header);
+        doc.Blocks.Add(text);
+
+        return doc;
     }
 
     public static Version[] SupportedVersions { get; } = new Version[]
