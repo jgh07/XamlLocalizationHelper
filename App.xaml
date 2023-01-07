@@ -12,6 +12,20 @@
                 <!--Styles & Templates-->
                 <ResourceDictionary Source="pack://application:,,,/AdonisUI.ClassicTheme;component/Resources.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+
+            <FlowDocument x:Key="InfoDocument">
+                <Paragraph FontSize="18"
+                           TextDecorations="Underline"
+                           FontWeight="SemiBold">
+                    <Run Text="XAML Localization Helper"/>
+                </Paragraph>
+
+                <Paragraph>
+                    <Run Text="This utility helps you translating your XAML-based applications (WPF, WinUI,...) that use resource dictionaries for their translated strings. It is accessible under the "/>
+                    <Run FontWeight="SemiBold" Text="Tools"/>
+                    <Run Text=" menu."/>
+                </Paragraph>
+            </FlowDocument>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
