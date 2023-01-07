@@ -39,7 +39,7 @@ public static class Metadata
         };
 
         Paragraph text = new();
-        text.Inlines.Add("This utility helps you translating your XAML-based applications (WPF, WinUI,...) that use resource dictionaries for their translated strings. It is accessible under the ");
+        text.Inlines.Add("This utility helps you translate your XAML-based applications (WPF, WinUI,...) that use resource dictionaries for their translated strings. It is accessible under the ");
 
         Run highlight = new("Tools")
         {
