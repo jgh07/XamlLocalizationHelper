@@ -8,7 +8,7 @@ public static class Metadata
     public static string Author { get; } = "Losch";
     public static Version Version { get; } = new(1, 0);
     public static ImageSource Icon { get; } = GetImage();
-    public static FlowDocument Document { get; } = (FlowDocument)XamlLocalizationHelperExtension.app.TryFindResource("InfoDocument");
+    public static FlowDocument Document { get; } = (FlowDocument)Application.Current.TryFindResource("InfoDocument");
 
     private static ImageSource GetImage()
     {
