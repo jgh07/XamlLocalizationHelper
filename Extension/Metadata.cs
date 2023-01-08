@@ -1,4 +1,6 @@
-﻿namespace XamlLocalizationHelper.Extension;
+﻿using System.Diagnostics;
+
+namespace XamlLocalizationHelper.Extension;
 
 public static class Metadata
 {
@@ -28,12 +30,13 @@ public static class Metadata
     {
         FlowDocument doc = new()
         {
-            FontFamily = new("Segoe UI")
+            FontFamily = new("Segoe UI"),
+            FontSize = 12
         };
 
         Paragraph header = new(new Run("XAML Localization Helper"))
         {
-            FontSize = 18,
+            FontSize = 14,
             TextDecorations = TextDecorations.Underline,
             FontWeight = FontWeights.SemiBold
         };
@@ -46,8 +49,28 @@ public static class Metadata
             FontWeight = FontWeights.SemiBold
         };
         text.Inlines.Add(highlight);
-
         text.Inlines.Add(" menu.");
+
+        text.Inlines.Add(new LineBreak());
+        text.Inlines.Add(new LineBreak());
+
+        text.Inlines.Add("For more information, visit the project on ");
+
+        Hyperlink hl = new(new Run("GitHub"))
+        {
+            NavigateUri = new("https://github.com/jgh07/XamlLocalizationHelper")
+        };
+        hl.RequestNavigate += (_, _) =>
+        {
+            Process.Start(new ProcessStartInfo()
+            {
+                UseShellExecute = true,
+                FileName = hl.NavigateUri.AbsoluteUri
+            });
+        };
+
+        text.Inlines.Add(hl);
+        text.Inlines.Add(".");
 
         doc.Blocks.Add(header);
         doc.Blocks.Add(text);
