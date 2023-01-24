@@ -1,4 +1,8 @@
 ﻿using Microsoft.Win32;
+using System.IO;
+using System.Net.Http;
+using System.Text.Json;
+using XamlLocalizationHelper.Views;
 using XamlLocalizationHelper.XamlParser;
 
 namespace XamlLocalizationHelper;
@@ -141,5 +145,46 @@ public partial class MainWindow : AdonisWindow
             GetPrevKeyButton_Click(this, new());
             return;
         }
+    }
+
+    readonly string key = "2145373c785842928ad9ca8968835690";
+    readonly string endpoint = "https://api.cognitive.microsofttranslator.com";
+    readonly string location = "germanywestcentral";
+
+    private async void MachineTranslationButton_Click(object sender, RoutedEventArgs e)
+    {
+        string route = $"/translate?api-version=3.0&from={sourceLanguageCode}&to={targetLanguageCode}";
+
+        for (int i = 0; i < SourceStrings.Count; i++)
+        {
+            object[] body = new object[] { new { Text = SourceStrings[i].Value } };
+            var requestBody = JsonSerializer.Serialize(body, typeof(object));
+
+            using HttpClient client = new();
+            using HttpRequestMessage message = new()
+            {
+                Method = HttpMethod.Post,
+                RequestUri = new(endpoint + route),
+                Content = new StringContent(requestBody, Encoding.UTF8, "application/json")
+            };
+
+            message.Headers.Add("Ocp-Apim-Subscription-Key", key);
+            message.Headers.Add("Ocp-Apim-Subscription-Region", location);
+
+            HttpResponseMessage response = await client.SendAsync(message).ConfigureAwait(false);
+            string responseText = await response.Content.ReadAsStringAsync();
+
+            LocalizedStrings.Add(new(SourceStrings[i].Name, responseText.Split("[{\"text\":\"").Last()[0..^15]));
+
+            StatusLabel.Dispatcher.Invoke(() =>
+            {
+                StatusLabel.Text = $"Translated {i} strings of {SourceStrings.Count}";
+            });
+        }
+
+        StatusLabel.Dispatcher.Invoke(() =>
+        {
+            StatusLabel.Text = "Ready";
+        });
     }
 }

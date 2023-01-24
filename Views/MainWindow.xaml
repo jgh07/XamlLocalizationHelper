@@ -40,14 +40,18 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="25"/>
         </Grid.RowDefinitions>
 
         <Border Grid.Row="0" BorderThickness="0,2,0,2" BorderBrush="{StaticResource {x:Static ui:Brushes.Layer1BorderBrush}}" Padding="0,5">
             <StackPanel Orientation="Horizontal">
                 <Button x:Name="LoadXamlFileButton" Content="Load file..." Margin="5,0" Click="LoadXamlFileButton_Click"/>
                 <TextBlock x:Name="SelectedFileText" Margin="5,0" Text="No file selected." VerticalAlignment="Center"/>
+
                 <TextBox x:Name="TargetLanguageTextBox" TextChanged="TargetLanguageTextBox_TextChanged" Margin="5,0" VerticalAlignment="Center" Width="250" HorizontalAlignment="Left" uie:WatermarkExtension.Watermark="Target language (2- or 4-character code)"/>
 
+                <Button x:Name="MachineTranslationButton" Margin="5,0" Content="Translate automatically" Click="MachineTranslationButton_Click" ToolTip="Automatically translate all strings using Google Translate"/>
+                
                 <Button x:Name="GetPrevKeyButton" Content="&lt;" Margin="5,0,0,0" ToolTip="Get previous string" Click="GetPrevKeyButton_Click"/>
                 <Button x:Name="GetNextKeyButton" Content="&gt;" Margin="0,0,5,0" ToolTip="Get next string" Click="GetNextKeyButton_Click"/>
 
@@ -93,5 +97,17 @@
                 <TextBox x:Name="LocalizedStringTextBox" Margin="5" Grid.Row="1" FontSize="36" TextWrapping="Wrap" uie:WatermarkExtension.Watermark="Localized string"/>
             </Grid>
         </Grid>
+
+        <Border Grid.Row="2"
+                Background="{DynamicResource {x:Static ui:Brushes.Layer0BackgroundBrush}}"
+                BorderBrush="{DynamicResource {x:Static ui:Brushes.Layer1BorderBrush}}"
+                BorderThickness="0,1,0,0">
+            
+            <Grid>
+                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5,0"
+                           x:Name="StatusLabel"
+                           Text="Ready"/>
+            </Grid>
+        </Border>
     </Grid>
 </uic:AdonisWindow>
