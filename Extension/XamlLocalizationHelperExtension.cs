@@ -27,7 +27,7 @@ public static class XamlLocalizationHelperExtension
         if (menu.Items.ToArray().Any(subItem => (subItem as MenuItem)?.Header == app.TryFindResource("StringToolsMenu")))
         {
             MenuItem parentItem = menu.Items.ToArray().First(subItem => (subItem as MenuItem)?.Header == app.TryFindResource("StringToolsMenu")) as MenuItem;
-            parentItem!.Items.Add(subItem);
+            parentItem!.Items.Insert(0, subItem);
 
             return;
         }
