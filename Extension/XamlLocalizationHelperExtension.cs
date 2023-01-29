@@ -37,6 +37,6 @@ public static class XamlLocalizationHelperExtension
             Header = app.TryFindResource("StringToolsMenu")
         };
 
-        parentMenu.Items.Add(subItem);
+        parentMenu.Items.Insert(0, subItem);
     }
 }
