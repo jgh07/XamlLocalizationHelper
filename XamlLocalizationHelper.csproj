@@ -1,30 +1,28 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net8.0-windows</TargetFramework>
+		<Nullable>disable</Nullable>
+		<UseWPF>true</UseWPF>
+		<AssemblyName>localize</AssemblyName>
+		<PackageId>XamlLocalizationHelper</PackageId>
+		<Authors>jgh07</Authors>
+		<Company>jgh07</Company>
+		<Product>XAML Localization Helper</Product>
+		<Description>A graphical UI to make localizing XAML applications easier.</Description>
+		<PlatformTarget>x64</PlatformTarget>
+		<SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
+		<Platforms>AnyCPU;x64</Platforms>
+		<ApplicationIcon>translate.ico</ApplicationIcon>
+	</PropertyGroup>
 
-  <PropertyGroup>
-    <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows</TargetFramework>
-    <Nullable>disable</Nullable>
-    <UseWPF>true</UseWPF>
-    <AssemblyName>localize</AssemblyName>
-    <PackageId>XamlLocalizationHelper</PackageId>
-    <Authors>IAmJonas1234</Authors>
-    <Company>IAmJonas1234</Company>
-    <Product>XAML Localization Helper</Product>
-    <Description>A graphical UI to make localizing XAML applications easier.</Description>
-    <PlatformTarget>x64</PlatformTarget>
-    <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
-    <Platforms>AnyCPU;x64</Platforms>
-    <ApplicationIcon>translate.ico</ApplicationIcon>
-  </PropertyGroup>
+	<ItemGroup>
+		<Content Include="translate.ico" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Content Include="translate.ico" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="AdonisUI" Version="1.17.1" />
-    <PackageReference Include="AdonisUI.ClassicTheme" Version="1.17.1" />
-    <PackageReference Include="Microsoft.Toolkit.Mvvm" Version="7.1.2" />
-  </ItemGroup>
-
+	<ItemGroup>
+		<PackageReference Include="AdonisUI" Version="1.17.1" />
+		<PackageReference Include="AdonisUI.ClassicTheme" Version="1.17.1" />
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+	</ItemGroup>
 </Project>
